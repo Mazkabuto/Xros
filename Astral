@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pencet Counter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 50px;
+    }
+
+    #button {
+      background-color: #ff4d4d;
+      border: none;
+      padding: 20px 40px;
+      font-size: 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #button:hover {
+      background-color: #ff1a1a;
+    }
+
+    #counter {
+      font-size: 40px;
+      margin-top: 20px;
+    }
+
+    .heart {
+      width: 100px;
+      height: 90px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: float 4s infinite ease-in-out;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 100px;
+      height: 90px;
+      background: red;
+      border-radius: 50px 50px 0 0;
+      position: absolute;
+      top: 0;
+    }
+
+    .heart::before {
+      left: -50px;
+    }
+
+    .heart::after {
+      left: 0;
+    }
+
+    @keyframes float {
+      0%   { top: 100%; opacity: 0; }
+      10%  { opacity: 1; }
+      50%  { top: 50%; }
+      100% { top: -100px; opacity: 0; }
+    }
+
+    #heart-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="button">PENCET</button>
+  <div id="counter">0</div>
+
+  <div id="heart-container"></div>
+
+  <script>
+    let count = 0;
+    const counterEl = document.getElementById('counter');
+    const buttonEl = document.getElementById('button');
+    const heartContainer = document.getElementById('heart-container');
+
+    buttonEl.addEventListener('click', () => {
+      count++;
+      counterEl.textContent = count;
+
+      if (count === 72862) {
+        triggerHeartAnimation();
+      }
+    });
+
+    function triggerHeartAnimation() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + '%';
+        heartContainer.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }
+    }
+  </script>
+</body>
+</html>
